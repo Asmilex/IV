@@ -10,6 +10,8 @@ La mayoría de personas tiene unas cuantas imágenes que le gustaría usar de fo
 
 ## Documentación
 
+TODO justificar uso de poetry y taskipy.
+
 Visita la carpeta [docs](./docs) para conocer más información
 
 ### Guía de uso
@@ -24,5 +26,10 @@ poetry run vin
 
 Para pasar los tests,
 ```
-poetry run pytest
+poetry run task tests
+```
+
+Para comprobar la sintaxis,
+```
+poetry run task check
 ```
