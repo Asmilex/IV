@@ -3,6 +3,7 @@ name = "vin"
 version = "0.1.0"
 description = "Etiquetador de fondos de escritorio"
 authors = ["Asmilex <andresmm@outlook.com>"]
+license = "GPL-3.0-or-later"
 
 [tool.poetry.dependencies]
 python = "^3.10"
