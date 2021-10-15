@@ -12,6 +12,17 @@ La mayoría de personas tiene unas cuantas imágenes que le gustaría usar de fo
 
 Visita la carpeta [docs](./docs) para conocer más información
 
-### Instalación
+### Guía de uso
 
-Visita la [wiki](https://github.com/Asmilex/IV/wiki/Instalaci%C3%B3n-y-ejecuci%C3%B3n) para saber cómo usar Vin
+> poetry run check
+
+Para ejecutar la aplicación, ejecuta la orden
+
+```
+poetry run vin
+```
+
+Para pasar los tests,
+```
+poetry run pytest
+```
