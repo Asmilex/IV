@@ -1,5 +1,5 @@
 lenguaje: python
 entidad:
 automatizar:
-  ficheros:
-  orden:
+  fichero: pyproject.toml
+  orden: poetry run
