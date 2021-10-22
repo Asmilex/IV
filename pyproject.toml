@@ -19,4 +19,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.taskipy.tasks]
 test = "python -m pytest"
-check = "pylint tests vin"
+check = "python -m compileall ./vin/*.py"
