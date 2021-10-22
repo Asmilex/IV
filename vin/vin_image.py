@@ -6,7 +6,7 @@ class VinImage:
     def change_tag(self, nuevo_tag: str):
         pass
 
-    def resolution(self):
+    def resolution(self) -> tuple[int, int]:
         pass
 
     def downscale(resolucion: tuple[int, int]):
