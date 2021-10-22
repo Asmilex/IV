@@ -1,7 +1,11 @@
 from vin.vin_image import VinImage
 import pytest
 
-def test_image():
+def test_image_creation():
+    imagen = VinImage('./test/img/test_image.jpg')
+    assert imagen != None
+
+def test_downscale():
     resolucion: tuple[int, int] = (64, 64)
     imagen = VinImage('./test/img/test_image.jpg')
     imagen.downscale(resolucion)
