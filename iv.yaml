@@ -1,5 +1,5 @@
 lenguaje: python
-entidad: todo.py
+entidad: vin/vin_image.py
 automatizar:
   fichero: pyproject.toml
   orden: poetry run
