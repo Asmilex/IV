@@ -1,2 +1,5 @@
 lenguaje: python
 entidad: vin/vin_image.py
+automatizar:
+  fichero: pyproject.toml
+  orden: poetry run
