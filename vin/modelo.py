@@ -1,3 +1,4 @@
+from vin.features import extract_features
 from vin.vin_image import VinImage
 import os
 import numpy as np
@@ -37,4 +38,29 @@ def knn(imagen: VinImage, dataset: list[VinImage], k: int) -> str:
 
     tag = 'unknown'
 
-    pass
+    # Preparamos ambas entradas: tanto la imagen a aproximar como el modelo
+    dataset_features = []
+
+    for img in dataset:
+        dataset_features.append(extract_features(img))
+
+    img_features = extract_features(imagen)
+
+
+    # Calculamos las distancias a los elementos del espacio. Estamos buscando las `k` imágenes más cercanas
+    distancias = []
+
+    for v in img_features:
+        distancias.append(
+            np.linalg.norm(v - img_features)
+        )
+    distancias = np.array(distancias)
+
+    # Necesitamos ver quién se ha quedado más cerca. Para ello, intentamos ordenar las distancias de menor a mayor, y vemos qué imágenes se han quedado más cerca.
+    indices_ordenados = np.lexsort([distancias, dataset])
+
+
+    #dataset_ordenado = dataset[indices_ordenados]
+
+
+    return tag
