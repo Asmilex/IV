@@ -14,3 +14,9 @@ class VinImage:
 
     def downscale(self, resolucion: Tuple[int, int]):
         self.image = cv.resize(self.image, resolucion, interpolation=cv.INTER_AREA)
+
+    def grayscale(self):
+        return cv.cvtColor(self.image, cv.COLOR_BGR2GRAY)
+
+    def hsv(self):
+        return cv.cvtColor(self.image, cv.COLOR_BGR2HSV)
