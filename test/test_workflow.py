@@ -1,5 +1,7 @@
 from vin.vin_image import VinImage
+import vin.features
 import pytest
+import numpy as np
 
 def test_image_creation():
     imagen = VinImage('./test/img/test_image.jpg')
@@ -16,3 +18,9 @@ def test_image_tag():
     nuevo_tag = 'prueba!'
     imagen.change_tag(nuevo_tag)
     assert nuevo_tag == imagen.tag
+
+
+def test_image_vectorization():
+    imagen = VinImage('./test/img/test_image.jpg')
+    features = vin.features.extract_features(imagen)
+    assert(np.isfinite(features).all())
