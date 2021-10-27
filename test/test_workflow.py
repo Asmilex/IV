@@ -1,3 +1,4 @@
+import vin.modelo
 from vin.vin_image import VinImage
 import vin.features
 import pytest
@@ -24,3 +25,8 @@ def test_image_vectorization():
     imagen = VinImage('./test/img/test_image.jpg')
     features = vin.features.extract_features(imagen)
     assert(np.isfinite(features).all())
+
+def test_carga_imagenes():
+    path = './vin/img'
+    lista = vin.modelo.cargar_imagenes(path)
+    assert(len(lista) > 0)
