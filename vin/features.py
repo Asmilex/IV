@@ -6,19 +6,18 @@ def hu_moments(imagen: VinImage):
     features = cv.HuMoments(cv.moments(imagen.grayscale()))
     return features.flatten()
 
-def histograma(imagen: VinImage):
-    bin_size = 32
+def histogram(imagen: VinImage):
+    size = 32
     hist = cv.calcHist(
         images   = [imagen.hsv()],
         channels = [0, 1, 2],
         mask     = None,
         ranges   = [0, 256, 0, 256, 0, 256],
-        histSize = [bin_size, bin_size, bin_size]
+        histSize = [size, size, size]
     )
     cv.normalize(hist, hist)
     return hist.flatten()
 
-
 def extract_features(image: VinImage):
-    features = np.hstack([hu_moments(image), histograma(image)])
+    features = np.hstack([hu_moments(image), histogram(image)])
     return features
