@@ -37,4 +37,4 @@ def test_knn():
     dataset = vin.modelo.cargar_imagenes(path)
     k = 1
     tag = vin.modelo.knn(imagen, dataset, 1)
-    assert(tag != '')
+    assert(tag != 'unkown')
