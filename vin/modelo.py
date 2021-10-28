@@ -2,8 +2,9 @@ from vin.features import extract_features
 from vin.vin_image import VinImage
 import os
 import numpy as np
+from typing import List
 
-def cargar_imagenes(directorio: str) -> list[VinImage]:
+def cargar_imagenes(directorio: str) -> List[VinImage]:
     """Carga la estructura de imágenes, almacenada de la siguiente forma:
     ```
     img
@@ -32,7 +33,7 @@ def cargar_imagenes(directorio: str) -> list[VinImage]:
     return imagenes
 
 
-def knn(imagen: VinImage, dataset: list[VinImage], k: int) -> str:
+def knn(imagen: VinImage, dataset: List[VinImage], k: int) -> str:
     """Aproxima `imagen` a los `k` vecinos más próximos utilizando las imágenes presentes en `dataset`
     """
 
@@ -54,13 +55,20 @@ def knn(imagen: VinImage, dataset: list[VinImage], k: int) -> str:
         distancias.append(
             np.linalg.norm(v - img_features)
         )
-    distancias = np.array(distancias)
 
     # Necesitamos ver quién se ha quedado más cerca. Para ello, intentamos ordenar las distancias de menor a mayor, y vemos qué imágenes se han quedado más cerca.
-    indices_ordenados = np.lexsort([distancias, dataset])
+    distancias, dataset_ordenado = zip(*sorted(zip(distancias, dataset)))
 
+    # Mirar las claves que hay en dataset por orden. Ir haciendo recuento, y quedarnos con la mayoritaria
+    diccionario = {}
+    for i in range(k):
+        tag = dataset_ordenado[i].tag
 
-    #dataset_ordenado = dataset[indices_ordenados]
+        if tag not in diccionario:
+            diccionario[tag] = 0
+        else:
+            diccionario[tag] = diccionario[tag] + 1
 
+    print(diccionario)
 
     return tag
