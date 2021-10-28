@@ -2,9 +2,9 @@ import cv2 as cv
 from typing import Tuple
 
 class VinImage:
-    def __init__(self, file_path: str):
+    def __init__(self, file_path: str, tag='unknown'):
         self.image = cv.imread(file_path)
-        self.tag = 'unknown'    # Correspondiente a la carpeta en la que se encuentra.
+        self.tag = tag
 
     def change_tag(self, nuevo_tag: str):
         self.tag = nuevo_tag
