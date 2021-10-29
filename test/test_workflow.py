@@ -1,4 +1,5 @@
 import vin.modelo
+import vin.file_io
 from vin.vin_image import VinImage
 import pytest
 
@@ -26,13 +27,13 @@ def test_image_vectorization():
 
 def test_carga_imagenes():
     path = './vin/img'
-    lista = vin.modelo.cargar_imagenes(path)
+    lista = vin.file_io.cargar_imagenes(path)
     assert len(lista) != 0, "No se han cargado correctamente las imágenes"
 
 def test_knn():
     path = './vin/img'
     imagen = VinImage('./test/img/test_image.jpg')
-    dataset = vin.modelo.cargar_imagenes(path)
+    dataset = vin.file_io.cargar_imagenes(path)
 
     k = 1
     tag = vin.modelo.knn(imagen, dataset, k)
