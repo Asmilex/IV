@@ -1,15 +1,7 @@
 from vin.vin_image import VinImage
+from vin.utils import distancia
 import os
-import numpy as np
 from typing import List
-
-def distancia(lista1, lista2) -> float:
-    """
-    Calcula la distancia euclídea de dos listas
-    """
-    cuadrados = [(p - q)**2 for p, q in zip(lista1, lista2)]
-    return sum(cuadrados)**.5
-
 
 def cargar_imagenes(directorio: str) -> List[VinImage]:
     """Carga la estructura de imágenes, almacenada de la siguiente forma:
