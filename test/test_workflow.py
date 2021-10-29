@@ -1,8 +1,6 @@
 import vin.modelo
 from vin.vin_image import VinImage
-import vin.features
 import pytest
-import numpy as np
 
 def test_image_creation():
     imagen = VinImage('./test/img/test_image.jpg')
@@ -23,18 +21,20 @@ def test_image_tag():
 
 def test_image_vectorization():
     imagen = VinImage('./test/img/test_image.jpg')
-    features = vin.features.extract_features(imagen)
-    assert(np.isfinite(features).all())
+    features = imagen.extract_features()
+    assert len(features) != 0, "La lista de caracerísticas está vacía"
 
 def test_carga_imagenes():
     path = './vin/img'
     lista = vin.modelo.cargar_imagenes(path)
-    assert(len(lista) > 0)
+    assert len(lista) != 0, "No se han cargado correctamente las imágenes"
 
 def test_knn():
     path = './vin/img'
     imagen = VinImage('./test/img/test_image.jpg')
     dataset = vin.modelo.cargar_imagenes(path)
+
     k = 1
-    tag = vin.modelo.knn(imagen, dataset, 1)
-    assert(tag != '')
+    tag = vin.modelo.knn(imagen, dataset, k)
+
+    assert tag != '', "No se ha creado correctamente la etiqueta en knn"
