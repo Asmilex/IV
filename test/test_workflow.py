@@ -37,4 +37,4 @@ def test_knn():
     k = 1
     tag = vin.modelo.knn(imagen, dataset, k)
 
-    assert tag != '', "No se ha creado correctamente la etiqueta en knn"
+    assert tag != 'unknown', "No se ha creado correctamente la etiqueta en knn"
