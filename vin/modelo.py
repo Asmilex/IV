@@ -25,15 +25,13 @@ def cargar_imagenes(directorio: str) -> List[VinImage]:
     """
     imagenes = []
 
-    categorias = os.listdir(directorio)
-
     print("Comienza la carga de imágenes...")
     for subcarpeta in os.scandir(directorio):
         print(f'\t→ Cargando categoría {subcarpeta.name}')
         for img in os.scandir(subcarpeta):
             if (img.is_file):
                 imagenes.append(
-                    VinImage(img.path)
+                    VinImage(img.path, subcarpeta.name)
                 )
 
     print("Listo ✓")
@@ -65,15 +63,16 @@ def knn(imagen: VinImage, dataset: List[VinImage], k: int) -> str:
 
 
     # Mirar las claves que hay en dataset por orden. Ir haciendo recuento, y quedarnos con la mayoritaria
-    diccionario = {}
+    recuento = {}
     for i in range(k):
         tag = dataset_ordenado[i].tag
 
-        if tag not in diccionario:
-            diccionario[tag] = 0
+        if tag not in recuento:
+            recuento[tag] = 1
         else:
-            diccionario[tag] = diccionario[tag] + 1
+            recuento[tag] = recuento[tag] + 1
 
-    print(diccionario)
+
+    tag = max(recuento, key=recuento.get)
 
     return tag
