@@ -8,11 +8,15 @@ RUN apt-get update \
   # Librerías necesarias para opencv
   && apt-get install ffmpeg libsm6 libxext6 -y \
   && pip3 install poetry \
-  # Hacemos lo siguiente para que poetry no cree otro entorno virtual;
-  # al estar en docker, ya estamos en uno.
-  && poetry config virtualenvs.create false \
-  && poetry install --no-interaction
+  && useradd --create-home --shell /bin/bash vin_user
 
 COPY . /vin
+
+USER vin_user
+
+# Hacemos lo siguiente para que poetry no cree otro entorno virtual;
+# al estar en docker, ya estamos en uno.
+RUN  poetry config virtualenvs.create true \
+  && poetry install --no-interaction
 
 ENTRYPOINT ["./docker-entrypoint.sh"]
