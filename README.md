@@ -16,7 +16,7 @@ Visita la carpeta [docs](./docs) para conocer más información
 
 ### Guía de uso
 
-> poetry run check
+> poetry run check, poetry run test
 
 Para ejecutar la aplicación, ejecuta la orden
 
