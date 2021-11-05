@@ -9,6 +9,8 @@ on:
 jobs:
   dockerfile-changes:
     runs-on: ubuntu-latest
+    outputs:
+      ha_cambiado: ${{ steps.set_output.outputs.si }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -20,15 +22,16 @@ jobs:
         uses: tj-actions/changed-files@v1.2.0
 
       - name: Dockerfile o requerimientos han cambiado
+        id: set_output
         if: |
           contains(steps.changed-files.outputs.modified_files, 'Dockerfile') ||
           contains(steps.changed-files.outputs.modified_files, 'pyproject.toml')
-        run: #exit_with_success
+        run: "::set-output name=ha_cambiado::true"
 
   build-container:
     runs-on: ubuntu-latest
     needs: dockerfile-changes
-    if: needs.dockerfile-changes.status == 'success'
+    if: needs.dockerfile-changes.outputs.ha_cambiado
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
