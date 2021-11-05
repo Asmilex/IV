@@ -9,20 +9,20 @@ on:
 
 jobs:
   dockerfile-changes:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
-      - name: Comprobar qué archivos han cambiado
-        id: changed-files
-        uses: tj-actions/changed-files@v1.2.0
+    - name: Comprobar qué archivos han cambiado
+      id: changed-files
+      uses: tj-actions/changed-files@v1.2.0
 
-      - name: Dockerfile o requerimientos han cambiado
-        if: |
-          contains(steps.changed-files.outputs.modified_files, 'Dockerfile') ||
-          contains(steps.changed-files.outputs.modified_files, 'pyproject.toml')
-        run: #exit_with_success
+    - name: Dockerfile o requerimientos han cambiado
+      if: |
+        contains(steps.changed-files.outputs.modified_files, 'Dockerfile') ||
+        contains(steps.changed-files.outputs.modified_files, 'pyproject.toml')
+      run: #exit_with_success
 
   build-container:
     runs-on: ubuntu-lastest
