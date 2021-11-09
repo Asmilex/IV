@@ -8,7 +8,7 @@ RUN apt-get update \
   && useradd --create-home --shell /bin/bash vin_user
 
 WORKDIR /vin
-COPY poetry.lock pyproject.toml /vin/
+COPY poetry.lock pyproject.toml docker-entrypoint.sh /vin/
 
 USER vin_user
 
