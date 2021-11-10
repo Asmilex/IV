@@ -15,4 +15,4 @@ USER vin_user
 RUN  poetry config virtualenvs.create true \
   && poetry install --no-interaction
 
-ENTRYPOINT ["./docker-entrypoint.sh"]
+ENTRYPOINT ["sh", "./docker-entrypoint.sh"]
