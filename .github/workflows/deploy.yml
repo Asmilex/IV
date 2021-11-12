@@ -46,7 +46,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: asmilex/vin
+          images: asmilex/iv
 
       - name: build y push
         uses: docker/build-push-action@v2
