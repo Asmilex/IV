@@ -16,13 +16,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: lint
-        uses: github/super-linter/slim@v4
-        env:
-          VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Se pueden usar diferentes linters cambiando la siguiete variable.
-          # Por defecto, se usa pylint (`VALIDATE_PYTHON`).
-          # Al principio, usaremos black
-          VALIDATE_PYTHON_BLACK: true
+      - name: Python Linter
+        uses: sunnysid3up/python-linter@master
+        with:
+          source: "."
+          mypy-options: "--ignore-missing-imports --show-error-codes"
+          isort-options: "-w 100"
+          django: false
