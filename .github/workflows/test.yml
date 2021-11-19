@@ -7,11 +7,15 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    container:
+      image: asmilex:iv
+
     steps:
+      # Vigilar permisos y directorio del checkout.
       - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
       - name: Aplicar test
-        run: docker run -t -v `pwd`:/app/test asmilex/iv
+        run: poetry run task lint
