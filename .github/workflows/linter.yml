@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: asmilex/iv
+      options: --user root
 
     steps:
       - name: Checkout
