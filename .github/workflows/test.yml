@@ -8,7 +8,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     container:
-      image: asmilex:iv
+      image: asmilex/iv
 
     steps:
       # Vigilar permisos y directorio del checkout.
