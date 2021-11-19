@@ -10,6 +10,9 @@ jobs:
   build:
     name: Lint code base
     runs-on: ubuntu-latest
+    container:
+      image: asmilex/iv
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -17,12 +20,4 @@ jobs:
           fetch-depth: 0
 
       - name: lint
-        uses: github/super-linter/slim@v4
-        env:
-          VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Se pueden usar diferentes linters cambiando la siguiete variable.
-          # Por defecto, se usa pylint (`VALIDATE_PYTHON`).
-          # Al principio, usaremos black
-          VALIDATE_PYTHON_BLACK: true
+        run: poetry run task lint
