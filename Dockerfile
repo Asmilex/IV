@@ -8,7 +8,7 @@ RUN  apt-get update \
   && useradd --create-home --shell /bin/bash vin_user \
   && mkdir -p /app/test/ /__w \
   && chown -R vin_user:vin_user /app/test \
-  # Para Github Actions
+  # para Github Actions
   && chown -R vin_user:vin_user /__w/
 
 USER vin_user
