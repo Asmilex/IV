@@ -10,7 +10,7 @@ jobs:
   dockerfile-changes:
     runs-on: ubuntu-latest
     outputs:
-      ha_cambiado: ${{ steps.set_output.outputs.si }}
+      ha_cambiado: ${{ steps.set_output.outputs.ha_cambiado }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -21,7 +21,7 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v1.2.0
 
-      - name: Dockerfile o requerimientos han cambiado
+      - name: Dockerfile orequerimientos ha cambiado
         id: set_output
         if: |
           contains(steps.changed-files.outputs.modified_files, 'Dockerfile') ||
