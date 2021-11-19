@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: asmilex/iv
-      options: --user root
+      options: --user vin_user
 
     steps:
       - name: Checkout
@@ -21,6 +21,4 @@ jobs:
           fetch-depth: 0
 
       - name: lint
-        run: |
-          su vin_user
-          poetry run task lint
+        run: poetry run task lint
