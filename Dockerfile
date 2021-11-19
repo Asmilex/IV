@@ -6,8 +6,10 @@ RUN  apt-get update \
   && apt-get install ffmpeg libsm6 libxext6 -y \
 #  && pip3 install poetry \
   && useradd --create-home --shell /bin/bash vin_user \
-  && mkdir -p /app/test/ \
-  && chown -R vin_user:vin_user /app/test
+  && mkdir -p /app/test/ /__w \
+  && chown -R vin_user:vin_user /app/test \
+  # Github Actions
+  && chown -R vin_user:vin_user /__w/
 
 USER vin_user
 WORKDIR /app/test
