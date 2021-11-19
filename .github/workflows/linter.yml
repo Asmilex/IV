@@ -21,4 +21,6 @@ jobs:
           fetch-depth: 0
 
       - name: lint
-        run: su vin_user; poetry run task lint
+        run: |
+          su vin_user
+          poetry run task lint
