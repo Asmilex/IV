@@ -10,8 +10,6 @@ on:
 jobs:
   dockerfile-changes:
     runs-on: ubuntu-latest
-    outputs:
-      ha_cambiado: ${{ steps.set_output.outputs.ha_cambiado }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -22,22 +20,10 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v1.2.0
 
-      - name: Dockerfile orequerimientos ha cambiado
-        id: set_output
+      - name: Login en Dockerhub
         if: |
           contains(steps.changed-files.outputs.modified_files, 'Dockerfile') ||
           contains(steps.changed-files.outputs.modified_files, 'pyproject.toml')
-        run: echo "::set-output name=ha_cambiado::true"
-
-  build-container:
-    runs-on: ubuntu-latest
-    needs: dockerfile-changes
-    if: needs.dockerfile-changes.outputs.ha_cambiado == true
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Login en Dockerhub
         uses: docker/login-action@v1
         with:
           username: ${{  secrets.DOCKER_USERNAME  }}
