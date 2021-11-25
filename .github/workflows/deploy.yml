@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - 'main'
-      - 'objetivo-6'
     tags:
       - 'v*'
 
@@ -43,7 +42,7 @@ jobs:
           tags: ${{  steps.meta.outputs.tags  }}
           labels: ${{  steps.meta.output.labels  }}
 
-      - name: Sync readme 
+      - name: Sync readme
         uses: ms-jpq/sync-dockerhub-readme@v1
         with:
           username: ${{  secrets.DOCKER_USERNAME  }}
