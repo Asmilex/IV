@@ -36,6 +36,9 @@ jobs:
       - run:
           name: Test
           command: poetry run task tests
+      - run:
+          name: Añadir newline si falta en iv.yaml
+          command: test "$(tail -c 1 iv.yaml | wc -l)" -eq 0 && echo '' >> iv.yaml
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
