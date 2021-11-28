@@ -19,6 +19,6 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.taskipy.tasks]
-tests = "python -m pytest"
+test = "python -m pytest"
 check = "python -m compileall ./vin/*.py"
 lint = "black ./vin -l 120"

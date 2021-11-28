@@ -14,7 +14,7 @@ jobs:
           command: poetry run task lint
       - run:
           name: Test
-          command: poetry run task tests
+          command: poetry run task test
       - run:
           name: Añadir newline si falta en iv.yaml
           command: if test "$(tail -c 1 iv.yaml | wc -l)" -eq 0; then echo '' >> iv.yaml; else echo 0; fi

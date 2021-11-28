@@ -32,7 +32,7 @@ poetry run vin
 
 Para pasar los tests,
 ```
-poetry run task tests
+poetry run task test
 ```
 
 Para comprobar la sintaxis,
