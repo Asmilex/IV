@@ -6,7 +6,7 @@ orbs:
 jobs:
   lint-and-test:
     docker:
-      - image: asmilex/iv
+      - image: asmilex/iv:<< parameters.python_version >>
     steps:
       - checkout
       - run:
@@ -22,4 +22,7 @@ jobs:
 workflows:
   integracion:
     jobs:
-      - lint-and-test
+      - lint-and-test:
+          matrix:
+            parameters:
+              python-version: ["3.8", "3.9", "3.10"]
