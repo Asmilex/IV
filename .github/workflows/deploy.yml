@@ -8,6 +8,9 @@ on:
 
 jobs:
   dockerfile-changes:
+    strategy:
+      matrix:
+        python_version: [3.8, 3.9, 3.10]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -39,8 +42,9 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{  steps.meta.outputs.tags  }}
+          tags: asmilex/iv:${{ matrix.python_version }}
           labels: ${{  steps.meta.output.labels  }}
+          build-args: ${{ matrix.python_version }}
 
       - name: Sync readme
         uses: ms-jpq/sync-dockerhub-readme@v1
