@@ -1,5 +1,4 @@
 ARG VERSION=3.10
-
 FROM python:$VERSION
 LABEL maintainer="andresmm@outlook.com"
 
