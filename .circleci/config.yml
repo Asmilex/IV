@@ -5,6 +5,9 @@ orbs:
 
 jobs:
   lint-and-test:
+    parameters:
+      python_version:
+        type: string
     docker:
       - image: asmilex/iv:<< parameters.python_version >>
     steps:
