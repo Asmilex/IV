@@ -1,5 +1,6 @@
-ARG pyver=3.10
-FROM python:$pyver
+ARG VERSION=3.10
+
+FROM python:$VERSION
 LABEL maintainer="andresmm@outlook.com"
 
 RUN  apt-get update \

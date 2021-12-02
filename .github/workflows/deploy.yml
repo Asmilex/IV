@@ -45,7 +45,7 @@ jobs:
           push: true
           tags: asmilex/iv:${{ matrix.python_version }}
           labels: ${{  steps.meta.output.labels  }}
-          build-args: ${{ matrix.python_version }}
+          build-args: VERSION=${{ matrix.python_version }}
 
       - name: Sync readme
         uses: ms-jpq/sync-dockerhub-readme@v1
