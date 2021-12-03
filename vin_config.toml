@@ -1,0 +1,16 @@
+title = "Archivo de configuración de Vin"
+
+[vin]
+k = 3
+img_folder = "./vin/img/"  # Debe terminar en barra
+
+[loggers]
+log_to_console = true
+log_to_file = true
+logfile = "./vin.log"
+level = "DEBUG"
+
+[test]
+k = 3
+img_folder = "./test/img/"  # Debe terminar en barra
+img_filename = "test_image.jpg"
