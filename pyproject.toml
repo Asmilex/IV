@@ -9,15 +9,16 @@ license = "GPL-3.0-or-later"
 python = ">=3.8,<3.11"
 pytest = "^6.2.5"
 opencv-python = "^4.5.4.58"
+black = "^21.11b1"
 
 [tool.poetry.dev-dependencies]
 taskipy = "^1.9.0"
-pylint = "^2.11.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.taskipy.tasks]
-tests = "python -m pytest"
+test = "python -m pytest"
 check = "python -m compileall ./vin/*.py"
+lint = "black ./vin -l 120"

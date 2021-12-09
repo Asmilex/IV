@@ -1,0 +1,31 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@1.2
+
+jobs:
+  lint-and-test:
+    parameters:
+      python-version:
+        type: string
+    docker:
+      - image: asmilex/iv:<< parameters.python-version >>
+    steps:
+      - checkout
+      - run:
+          name: Lint
+          command: poetry run task lint
+      - run:
+          name: Test
+          command: poetry run task test
+      - run:
+          name: Añadir newline si falta en iv.yaml
+          command: if test "$(tail -c 1 iv.yaml | wc -l)" -eq 0; then echo '' >> iv.yaml; else echo 0; fi
+
+workflows:
+  integracion:
+    jobs:
+      - lint-and-test:
+          matrix:
+            parameters:
+              python-version: ["3.8", "3.9", "3.10"]
