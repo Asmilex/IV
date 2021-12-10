@@ -1,10 +1,20 @@
 from vin.vin_image import VinImage
+from vin.logger import Logger
 
-def preprocesar(imagen: VinImage):
-    pass
+class Pipeline:
+    def __init__(self):
+        self.logger = Logger()
 
-def etiquetar(imagen: VinImage):
-    pass
+        self.logger.info("Hola!")
 
-def almacenar_imagen(imagen: VinImage):
-    pass
+    def preprocesar(imagen: VinImage):
+        pass
+
+
+    def etiquetar(imagen: VinImage):
+        pass
+
+    def almacenar_imagen(imagen: VinImage):
+        pass
+
+pipeline = Pipeline()

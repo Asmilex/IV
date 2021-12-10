@@ -1,6 +1,7 @@
 import vin.modelo
 import vin.file_io
 from vin.vin_image import VinImage
+from vin.pipeline import Pipeline
 
 import pytest
 import toml
@@ -56,3 +57,10 @@ def test_knn():
     tag = vin.modelo.knn(imagen, dataset, k)
 
     assert tag != 'unknown', "No se ha creado correctamente la etiqueta en knn"
+
+# ────────────────────────────────────────────────────────────────────────────────
+
+def test_pipeline_creation():
+    pipeline = Pipeline()
+
+    assert pipeline != None
