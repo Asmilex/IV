@@ -1,5 +1,6 @@
 from vin.vin_image import VinImage
 from vin.logger import Logger
+from vin.vin_config import VinConfig
 
 class Pipeline:
     def __init__(self):

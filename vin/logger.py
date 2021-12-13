@@ -6,9 +6,11 @@ from vin.vin_config import VinConfig
 
 
 class Logger:
-    def __init__(self, config: VinConfig):
-        self.logger = logging.getLogger("")
+    def __init__(self, config: VinConfig = None):
+        if not config:
+            config = VinConfig.load()
 
+        self.logger = logging.getLogger("")
         self.__setup_config__(config)
 
     def debug(self, text):

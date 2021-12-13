@@ -1,6 +1,14 @@
 import toml
 
 class VinConfig:
-    def __init__(self, path = './vin_config.toml'):
+    def load(path = './vin_config.toml', override = None):
         config = toml.load(path)
+
+        if override:
+            config.update(override)
+
+        return config
+
+    def override(config, override):
+        config.update(override)
         return config

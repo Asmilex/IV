@@ -2,11 +2,12 @@ import vin.modelo
 import vin.file_io
 from vin.vin_image import VinImage
 from vin.pipeline import Pipeline
+from vin.vin_config import VinConfig
 
 import pytest
 import toml
 
-config = toml.load('./vin_config.toml')
+config = VinConfig.load()
 
 def test_image_creation():
     path = config['test']['img_folder'] + config['test']['img_filename']
@@ -64,3 +65,18 @@ def test_pipeline_creation():
     pipeline = Pipeline()
 
     assert pipeline != None
+
+def test_config():
+    config = VinConfig.load()
+    default = config['test']['k']
+
+    new_value = 5
+
+    override = {
+        'test': {
+            'k': new_value
+        }
+    }
+    config = VinConfig.load(override=override)
+
+    assert config['test']['k'] == new_value and default != new_value
