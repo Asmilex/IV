@@ -5,3 +5,4 @@ automatizar:
   orden: poetry run
 test: test/test_workflow.py
 CI: .circleci/config.yml
+configuracion: vin_config.toml
