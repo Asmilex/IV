@@ -8,7 +8,7 @@ from vin.vin_config import VinConfig
 class Logger:
     def __init__(self, config: VinConfig = None):
         if not config:
-            config = VinConfig.load()
+            config = VinConfig()
 
         self.logger = logging.getLogger("")
         self.__setup_config__(config)
@@ -30,7 +30,7 @@ class Logger:
 
 
     def __setup_config__(self, config):
-        self.logger.setLevel(config['logging']['level'])
+        self.logger.setLevel(config.log_level)
 
         formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
 
@@ -39,16 +39,16 @@ class Logger:
             h for h in self.logger.handlers if not isinstance(h, logging.StreamHandler)
         ]
 
-        if config['logging']['log_to_file']:
+        if config.log_to_file:
             file_handler = logging.handlers.RotatingFileHandler(
-                config['logging']['logfile'], maxBytes=(300000), backupCount=3
+                config.logfile, maxBytes=(300000), backupCount=3
             )
 
             file_handler.setFormatter(formatter)
 
             self.logger.addHandler(file_handler)
 
-        if config['logging']['log_to_console']:
+        if config.log_to_console:
             console_handler = logging.StreamHandler(sys.stderr)
             console_handler.setFormatter(formatter)
 

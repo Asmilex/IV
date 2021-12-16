@@ -7,16 +7,16 @@ from vin.vin_config import VinConfig
 import pytest
 import toml
 
-config = VinConfig.load()
+config = VinConfig()
 
 def test_image_creation():
-    path = config['test']['img_folder'] + config['test']['img_filename']
+    path = config.test_img_folder + config.test_img_filename
     imagen = VinImage(path)
     assert imagen != None
 
 def test_image_downscale():
     resolucion: tuple[int, int] = (64, 64)
-    path = config['test']['img_folder'] + config['test']['img_filename']
+    path = config.test_img_folder + config.test_img_filename
 
     imagen = VinImage(path)
     imagen.downscale(resolucion)
@@ -24,7 +24,7 @@ def test_image_downscale():
     assert imagen.resolution() == resolucion
 
 def test_image_tag():
-    path = config['test']['img_folder'] + config['test']['img_filename']
+    path = config.test_img_folder + config.test_img_filename
     imagen = VinImage(path)
 
     nuevo_tag = 'prueba!'
@@ -34,7 +34,7 @@ def test_image_tag():
 
 
 def test_image_vectorization():
-    path = config['test']['img_folder'] + config['test']['img_filename']
+    path = config.test_img_folder + config.test_img_filename
     imagen = VinImage(path)
 
     features = imagen.extract_features()
@@ -42,18 +42,18 @@ def test_image_vectorization():
     assert len(features) != 0, "La lista de caracerísticas está vacía"
 
 def test_carga_imagenes():
-    path = config['vin']['img_folder']
+    path = config.img_folder
     lista = vin.file_io.cargar_imagenes(path)
 
     assert len(lista) != 0, "No se han cargado correctamente las imágenes"
 
 def test_knn():
-    dataset = vin.file_io.cargar_imagenes(config['vin']['img_folder'])
+    dataset = vin.file_io.cargar_imagenes(config.img_folder)
 
-    path = config['test']['img_folder'] + config['test']['img_filename']
+    path = config.test_img_folder + config.test_img_filename
     imagen = VinImage(path)
 
-    k = config['test']['k']
+    k = config.k
 
     tag = vin.modelo.knn(imagen, dataset, k)
 
@@ -67,16 +67,14 @@ def test_pipeline_creation():
     assert pipeline != None
 
 def test_config():
-    config = VinConfig.load()
-    default = config['test']['k']
+    config = VinConfig()
+    default = config.test_k
 
-    new_value = 5
+    config = VinConfig(test_k = 5)
 
-    override = {
-        'test': {
-            'k': new_value
-        }
-    }
-    config = VinConfig.load(override=override)
+    assert config.test_k != default
 
-    assert config['test']['k'] == new_value and default != new_value
+def test_config_path():
+    config = VinConfig(path = VinConfig.default_config_file)
+
+    assert config != None and config.k > 0
