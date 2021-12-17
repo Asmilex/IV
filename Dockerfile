@@ -15,7 +15,7 @@ RUN  apt-get update \
 USER vin_user
 WORKDIR /app/test
 
-COPY poetry.lock pyproject.toml docker-entrypoint.sh /app/test/
+COPY poetry.lock pyproject.toml /app/test/
 
 ENV PATH="$PATH:/home/vin_user/.local/bin"
 
