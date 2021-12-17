@@ -63,18 +63,23 @@ def test_knn():
 
 def test_pipeline_creation():
     pipeline = Pipeline()
-
     assert pipeline != None
+
 
 def test_config():
     config = VinConfig()
-    default = config.test_k
+    default_k = config.test_k
 
-    config = VinConfig(test_k = 5)
+    k = 5
+    config = VinConfig(test_k = k)
 
-    assert config.test_k != default
+    assert config.test_k != default_k and config.test_k == k
+
 
 def test_config_path():
     config = VinConfig(path = VinConfig.default_config_file)
 
-    assert config != None and config.k > 0
+    assert path.exists(VinConfig.default_config_file)
+    assert config != None
+
+
