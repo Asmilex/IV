@@ -12,19 +12,19 @@ class VinConfig:
             self.load(path)
         else:
             # Vin
-            self.k          = k if k else 3
-            self.img_folder = img_folder if img_folder else "./vin/img/"
+            self.k          = 3 if k is None else k
+            self.img_folder = "./vin/img/" if img_folder is None else img_folder
 
             # logging
-            self.log_to_console = log_to_console if log_to_console else True
-            self.log_to_file    = log_to_file if log_to_file else True
-            self.logfile        = logfile if logfile else './vin.log'
-            self.log_level      = log_level if log_level else 'DEBUG'
+            self.log_to_console = True if log_to_console is None else log_to_console
+            self.log_to_file    = True if log_to_file is None else log_to_file
+            self.logfile        = './vin.log' if logfile is None else logfile
+            self.log_level      = 'DEBUG' if log_level is None else log_level
 
             # test
-            self.test_k            = test_k if test_k else 3
-            self.test_img_folder   = test_img_folder if test_img_folder else "./test/img/"
-            self.test_img_filename = test_img_filename if test_img_filename else "test_image.jpg"
+            self.test_k            = 3 if test_k is None else test_k
+            self.test_img_folder   = "./test/img/" if test_img_folder is None else test_img_folder
+            self.test_img_filename = "test_image.jpg" if test_img_filename is None else test_img_filename
 
 
     def load(self, path):
