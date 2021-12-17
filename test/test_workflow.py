@@ -4,8 +4,10 @@ from vin.vin_image import VinImage
 from vin.pipeline import Pipeline
 from vin.vin_config import VinConfig
 
+
 import pytest
 import toml
+from os import path
 
 config = VinConfig()
 
@@ -83,3 +85,18 @@ def test_config_path():
     assert config != None
 
 
+def test_logger():
+    from vin.logger import LoggerConfig
+
+    log_config = VinConfig(log_to_file=False)
+
+    logger = LoggerConfig.get(log_config)
+
+    logger.debug("Mensaje de debug")
+    logger.info("Mensaje de info")
+    logger.success("Mensaje de success")
+    logger.warning("Mensaje de warning")
+    logger.error("Mensaje de error")
+    logger.critical("Mensajde de error crítico")
+
+    assert logger != None

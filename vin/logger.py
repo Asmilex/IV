@@ -1,55 +1,33 @@
+from asyncio.log import logger
 import logging
 import logging.handlers
+import loguru
 import sys
 
 from vin.vin_config import VinConfig
 
-
-class Logger:
-    def __init__(self, config: VinConfig = None):
+class LoggerConfig:
+    def get(config: VinConfig = None):
         if not config:
             config = VinConfig()
 
-        self.logger = logging.getLogger("")
-        self.__setup_config__(config)
+        logger = loguru.logger
+        #self.logger = logging.getLogger("")
+        logger = LoggerConfig.__setup_config__(logger, config)
 
-    def debug(self, text):
-        return self.logger.debug(text)
+        return logger
 
-    def info(self, text):
-        return self.logger.info(text)
+    def __setup_config__(logger, config: VinConfig):
+        logger.remove()
+        logger.level(config.log_level)
 
-    def warning(self, text):
-        return self.logger.warning(text)
-
-    def error(self, text):
-        return self.logger.error(text)
-
-    def critical(self, text):
-        return self.logger.critical(text)
-
-
-    def __setup_config__(self, config):
-        self.logger.setLevel(config.log_level)
-
-        formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-
-        # Quitar el handler por defecto que viene
-        self.logger.handlers = [
-            h for h in self.logger.handlers if not isinstance(h, logging.StreamHandler)
-        ]
-
+        logger.info(config.log_to_file)
         if config.log_to_file:
-            file_handler = logging.handlers.RotatingFileHandler(
-                config.logfile, maxBytes=(300000), backupCount=3
-            )
-
-            file_handler.setFormatter(formatter)
-
-            self.logger.addHandler(file_handler)
+            logger.add(config.logfile, rotation = "500 MB")
 
         if config.log_to_console:
-            console_handler = logging.StreamHandler(sys.stderr)
-            console_handler.setFormatter(formatter)
+            logger.add(sys.stderr)
 
-            self.logger.addHandler(console_handler)
+        return logger
+
+logger = LoggerConfig.get()
