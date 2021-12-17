@@ -12,7 +12,7 @@ class VinConfig:
             self.load(path)
         else:
             # Vin
-            self.k          = 3 if k is None else k
+            self.k          = 3 if k is None or k <= 1 else k
             self.img_folder = "./vin/img/" if img_folder is None else img_folder
 
             # logging
@@ -44,3 +44,9 @@ class VinConfig:
         self.test_k            = config['test']['k']
         self.test_img_folder   = config['test']['img_folder']
         self.test_img_filename = config['test']['img_filename']
+
+    def __str__(self):
+        return f'\
+            k = {self.k}, img_folder = {self.img_folder}\
+            log_to_console = {self.log_to_console}, log_to_file = {self.log_to_file}, logfile = {self.logfile}, log_level = {self.log_level},\
+            test_k = {self.test_k}, test_img_folder = {self.test_img_folder}, test_img_filename = {self.test_img_filename}'
