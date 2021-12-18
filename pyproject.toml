@@ -12,7 +12,6 @@ opencv-python = "^4.5.4.58"
 black = "^21.11b1"
 loguru = "^0.5.3"
 
-
 [tool.poetry.dev-dependencies]
 taskipy = "^1.9.0"
 
