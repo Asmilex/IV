@@ -1,4 +1,5 @@
 import toml
+from sys import platform
 
 class VinConfig:
     default_config_file = './vin_config.toml'
@@ -18,7 +19,12 @@ class VinConfig:
             # logging
             self.log_to_console = True if log_to_console is None else log_to_console
             self.log_to_file    = True if log_to_file is None else log_to_file
-            self.logfile        = './vin.log' if logfile is None else logfile
+
+            if platform == "linux" or platform == "linux2":
+                self.logfile = '/tmp/vin.log' if logfile is None else logfile
+            else:
+                self.logfile = './vin.log' if logfile is None else logfile
+
             self.log_level      = 'DEBUG' if log_level is None else log_level
 
             # test

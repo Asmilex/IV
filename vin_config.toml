@@ -7,7 +7,6 @@ img_folder = "./vin/img/"  # Debe terminar en barra
 [logging]
 log_to_console = true
 log_to_file = true
-logfile = "./vin.log"
 log_level = "DEBUG"
 
 [test]
