@@ -9,6 +9,12 @@ class VinConfig:
         log_to_console = None, log_to_file = None, logfile = None, log_level = None,
         test_k = None, test_img_folder = None, test_img_filename = None
     ):
+
+        if platform == "linux" or platform == "linux2":
+            self.logfile = '/tmp/vin.log' if logfile is None else logfile
+        else:
+            self.logfile = './vin.log' if logfile is None else logfile
+
         if path:
             self.load(path)
         else:
@@ -20,10 +26,6 @@ class VinConfig:
             self.log_to_console = True if log_to_console is None else log_to_console
             self.log_to_file    = True if log_to_file is None else log_to_file
 
-            if platform == "linux" or platform == "linux2":
-                self.logfile = '/tmp/vin.log' if logfile is None else logfile
-            else:
-                self.logfile = './vin.log' if logfile is None else logfile
 
             self.log_level      = 'DEBUG' if log_level is None else log_level
 
@@ -43,7 +45,6 @@ class VinConfig:
         # logging
         self.log_to_console = config['logging']['log_to_console']
         self.log_to_file    = config['logging']['log_to_file']
-        self.logfile        = config['logging']['logfile']
         self.log_level      = config['logging']['log_level']
 
         # test
