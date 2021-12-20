@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'objetivo-7'
     tags:
       - 'v*'
 
