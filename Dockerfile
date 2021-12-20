@@ -15,12 +15,12 @@ RUN  apt-get update \
 USER vin_user
 WORKDIR /app/test
 
-COPY poetry.lock pyproject.toml docker-entrypoint.sh /app/test/
+COPY poetry.lock pyproject.toml /app/test/
 
 ENV PATH="$PATH:/home/vin_user/.local/bin"
 
-RUN  pip3 install poetry \
+RUN  curl -sSL https://install.python-poetry.org | python3 - \
   && poetry config virtualenvs.create false \
   && poetry install --no-interaction
 
-ENTRYPOINT ["poetry", "run", "task", "tests"]
+ENTRYPOINT ["poetry", "run", "task", "test"]
