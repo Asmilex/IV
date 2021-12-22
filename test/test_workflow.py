@@ -11,37 +11,43 @@ from os import path
 
 config = VinConfig()
 
-def test_image_creation():
-    path = config.test_img_folder + config.test_img_filename
-    imagen = VinImage(path)
-    assert imagen != None
 
-def test_image_downscale():
+# ───────────────────────────────────────────────────────────────── FIXTURES ─────
+
+
+@pytest.fixture
+def imagen_test():
+    return VinImage(config.test_img_folder + config.test_img_filename)
+
+
+# ────────────────────────────────────────────────────────────────────────────────
+
+
+def test_image_creation(imagen_test):
+    imagen_test
+    assert imagen_test != None
+
+
+def test_image_downscale(imagen_test):
     resolucion: tuple[int, int] = (64, 64)
-    path = config.test_img_folder + config.test_img_filename
 
-    imagen = VinImage(path)
-    imagen.downscale(resolucion)
+    imagen_test.downscale(resolucion)
 
-    assert imagen.resolution() == resolucion
+    assert imagen_test.resolution() == resolucion
 
-def test_image_tag():
-    path = config.test_img_folder + config.test_img_filename
-    imagen = VinImage(path)
 
+def test_image_tag(imagen_test):
     nuevo_tag = 'prueba!'
-    imagen.change_tag(nuevo_tag)
+    imagen_test.change_tag(nuevo_tag)
 
-    assert nuevo_tag == imagen.tag
+    assert nuevo_tag == imagen_test.tag
 
 
-def test_image_vectorization():
-    path = config.test_img_folder + config.test_img_filename
-    imagen = VinImage(path)
-
-    features = imagen.extract_features()
+def test_image_vectorization(imagen_test):
+    features = imagen_test.extract_features()
 
     assert len(features) != 0, "La lista de caracerísticas está vacía"
+
 
 def test_carga_imagenes():
     path = config.img_folder
@@ -49,19 +55,19 @@ def test_carga_imagenes():
 
     assert len(lista) != 0, "No se han cargado correctamente las imágenes"
 
-def test_knn():
-    dataset = vin.file_io.cargar_imagenes(config.img_folder)
 
-    path = config.test_img_folder + config.test_img_filename
-    imagen = VinImage(path)
+def test_knn(imagen_test):
+    dataset = vin.file_io.cargar_imagenes(config.img_folder)
 
     k = config.k
 
-    tag = vin.modelo.knn(imagen, dataset, k)
+    tag = vin.modelo.knn(imagen_test, dataset, k)
 
     assert tag != 'unknown', "No se ha creado correctamente la etiqueta en knn"
 
+
 # ────────────────────────────────────────────────────────────────────────────────
+
 
 def test_pipeline_creation():
     pipeline = Pipeline()
