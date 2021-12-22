@@ -1,8 +1,9 @@
 import cv2 as cv
 from typing import Tuple
 
+
 class VinImage:
-    def __init__(self, file_path: str, tag='unknown'):
+    def __init__(self, file_path: str, tag="unknown"):
         self.image = cv.imread(file_path)
         self.tag = tag
 
@@ -15,9 +16,7 @@ class VinImage:
     def downscale(self, resolucion: Tuple[int, int]):
         self.image = cv.resize(self.image, resolucion, interpolation=cv.INTER_AREA)
 
-
     # ─────────────────────────────────────────────────────── ESPACIO DE COLORES ─────
-
 
     def grayscale(self):
         return cv.cvtColor(self.image, cv.COLOR_BGR2GRAY)
@@ -25,9 +24,7 @@ class VinImage:
     def hsv(self):
         return cv.cvtColor(self.image, cv.COLOR_BGR2HSV)
 
-
     # ──────────────────────────────────────────── EXTRACCION DE CARACTERISTICAS ─────
-
 
     def hu_moments(self):
         features = cv.HuMoments(cv.moments(self.grayscale()))
@@ -36,11 +33,11 @@ class VinImage:
     def histogram(self):
         size = 32
         hist = cv.calcHist(
-            images   = [self.hsv()],
-            channels = [0, 1, 2],
-            mask     = None,
-            ranges   = [0, 256, 0, 256, 0, 256],
-            histSize = [size, size, size]
+            images=[self.hsv()],
+            channels=[0, 1, 2],
+            mask=None,
+            ranges=[0, 256, 0, 256, 0, 256],
+            histSize=[size, size, size],
         )
         cv.normalize(hist, hist)
         return hist.flatten().tolist()
