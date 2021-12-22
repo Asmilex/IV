@@ -104,4 +104,19 @@ def test_logger():
     logger.error("Mensaje de error")
     logger.critical("Mensaje de error crítico")
 
+    # Comprobar que se crea el archivo de logging
+    from datetime import datetime
+
+
+    now = datetime.now()
+    salida = "Testing logging file (" + now.strftime("%Y/%m/%d, %H:%M:%S") + ")"
+
+    log_config.log_to_file = True
+    logger = LoggerConfig.get(log_config)
+
+    logger.debug(salida)
+
+    assert path.exists(log_config.logfile)
+    assert open(log_config.logfile, 'r').read().find(salida) != -1
+
     assert logger != None
