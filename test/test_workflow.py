@@ -86,8 +86,10 @@ def test_config():
 
 def test_config_path():
     config = VinConfig(path = VinConfig.default_config_file)
-
     assert config != None
+
+    with pytest.raises(Exception):
+        assert VinConfig(path = '/este/path/no/existe')
 
 
 def test_logger():

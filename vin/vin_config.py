@@ -17,7 +17,9 @@ class VinConfig:
         else:
             self.logfile = './vin.log' if logfile is None else logfile
 
-        if path and  os.path.exists(VinConfig.default_config_file):
+        if path and not os.path.exists(path):
+            raise Exception(f'No existe el archivo de configuración {path}')
+        elif path and os.path.exists(path):
             self.load(path)
         else:
             # Vin
