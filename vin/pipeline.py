@@ -1,9 +1,10 @@
 from vin.vin_image import VinImage
-from vin.logger import logger
+from vin.logger import LoggerConfig
 from vin.vin_config import VinConfig
 
 class Pipeline:
     def __init__(self):
+        logger = LoggerConfig.get()
         logger.info("Inicializando pipeline")
 
         logger.info('Procesando imagen')

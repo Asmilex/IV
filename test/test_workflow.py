@@ -3,6 +3,7 @@ import vin.file_io
 from vin.vin_image import VinImage
 from vin.pipeline import Pipeline
 from vin.vin_config import VinConfig
+from vin.logger import LoggerConfig
 
 
 import pytest
@@ -18,6 +19,10 @@ config = VinConfig()
 @pytest.fixture
 def imagen_test():
     return VinImage(config.test_img_folder + config.test_img_filename)
+
+@pytest.fixture
+def logger():
+    return LoggerConfig.get()
 
 
 # ────────────────────────────────────────────────────────────────────────────────
@@ -136,11 +141,10 @@ def test_dotenv():
     assert os.getenv('TEST_DOTENV')
 
 
-def test_logger():
-    from vin.logger import logger, LoggerConfig
-
+def test_logger(logger):
     log_config = VinConfig(log_to_file=False)
-    LoggerConfig.change_config(logger, log_config)
+
+    LoggerConfig.get(log_config)
 
     logger.debug("Mensaje de debug")
     logger.info("Mensaje de info")
@@ -156,7 +160,7 @@ def test_logger():
     salida = "Testing logging file (" + now.strftime("%Y/%m/%d, %H:%M:%S") + ")"
 
     log_config.log_to_file = True
-    LoggerConfig.change_config(logger, log_config)
+    LoggerConfig.get(log_config)
 
     logger.debug(salida)
 

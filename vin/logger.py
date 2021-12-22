@@ -3,26 +3,46 @@ import sys
 
 from vin.vin_config import VinConfig
 
-class LoggerConfig:
-    def get(logger, config: VinConfig = None):
+
+# ────────────────────────────────────────────────────────────────────────────────
+
+class __Borg__:
+    _shared_state = {}
+
+    def __init__(self):
+        self.__dict__ = self._shared_state
+
+# ────────────────────────────────────────────────────────────────────────────────
+
+class LoggerConfig(__Borg__):
+    def __init__(self, config: VinConfig = None):
+        __Borg__.__init__(self)
+        self.logger = loguru.logger
+
         if not config:
             config = VinConfig()
 
-        logger = LoggerConfig.change_config(logger, config)
+        self.__change_config__(config)
 
-        return logger
 
-    def change_config(logger, config: VinConfig):
-        logger.remove()
-        logger.level(config.log_level)
+    def __change_config__(self, config: VinConfig):
+        self.logger.remove()
+        self.logger.level(config.log_level)
 
-        logger.info(config.log_to_file)
+        self.logger.info(config.log_to_file)
         if config.log_to_file:
-            logger.add(config.logfile, rotation = "500 MB")
+            self.logger.add(config.logfile, rotation = "500 MB")
 
         if config.log_to_console:
-            logger.add(sys.stderr)
+            self.logger.add(sys.stderr)
 
-        return logger
 
-logger = LoggerConfig.get(loguru.logger)
+    @staticmethod
+    def get(config: VinConfig = None):
+        if not config:
+            config = VinConfig()
+
+        obj = LoggerConfig()
+        obj.__change_config__(config)
+
+        return obj.logger
