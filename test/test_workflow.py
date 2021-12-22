@@ -85,9 +85,37 @@ def test_config():
 
 
 def test_config_path():
+    # Comprobar que carga correctamente un posible archivo de configuración
+    import os
+
+    delete_later = False
+    if not path.exists(VinConfig.default_config_file):
+        fp = open(VinConfig.default_config_file, 'x')
+        fp.write('''[vin]
+            k = 3
+            img_folder = "./vin/img/"  # Debe terminar en barra
+
+            [logging]
+            log_to_console = true
+            log_to_file = true
+            log_level = "DEBUG"
+
+            [test]
+            k = 3
+            img_folder = "./test/img/"  # Debe terminar en barra
+            img_filename = "test_image.jpg"'''
+        )
+        fp.close()
+        delete_later = True
+
     config = VinConfig(path = VinConfig.default_config_file)
     assert config != None
 
+    if delete_later:
+        os.remove(VinConfig.default_config_file)
+
+
+    # Comprobar ahora que se lanzan excepciones si el path no existe
     with pytest.raises(Exception):
         assert VinConfig(path = '/este/path/no/existe')
 
