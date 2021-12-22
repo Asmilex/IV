@@ -120,6 +120,22 @@ def test_config_path():
         assert VinConfig(path = '/este/path/no/existe')
 
 
+def test_dotenv():
+    import os
+
+    temp_path = './test.env'
+
+    fp = open(temp_path, 'x')
+    fp.write('TEST_DOTENV=True')
+    fp.close()
+
+    VinConfig(dotenv_path=temp_path)
+
+    os.remove(temp_path)
+
+    assert os.getenv('TEST_DOTENV')
+
+
 def test_logger():
     from vin.logger import logger, LoggerConfig
 

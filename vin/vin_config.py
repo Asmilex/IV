@@ -1,16 +1,19 @@
 import toml
 from sys import platform
 import os
+import dotenv
 
 
 class VinConfig:
     default_config_file = './vin_config.toml'
 
-    def __init__(self, path = None,
+    def __init__(self,
+        path = None, dotenv_path = None,
         k = None, img_folder = None,
         log_to_console = None, log_to_file = None, logfile = None, log_level = None,
         test_k = None, test_img_folder = None, test_img_filename = None
     ):
+        self.__load_dotenv__(dotenv_path)
 
         if platform == "linux" or platform == "linux2":
             self.logfile = '/tmp/vin.log' if logfile is None else logfile
@@ -55,6 +58,10 @@ class VinConfig:
         self.test_k            = config['test']['k']
         self.test_img_folder   = config['test']['img_folder']
         self.test_img_filename = config['test']['img_filename']
+
+
+    def __load_dotenv__(self, dotenv_path):
+        dotenv.load_dotenv(dotenv_path = dotenv_path)
 
     def __str__(self):
         return f'\
