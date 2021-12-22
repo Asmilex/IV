@@ -1,23 +1,18 @@
-from asyncio.log import logger
-import logging
-import logging.handlers
 import loguru
 import sys
 
 from vin.vin_config import VinConfig
 
 class LoggerConfig:
-    def get(config: VinConfig = None):
+    def get(logger, config: VinConfig = None):
         if not config:
             config = VinConfig()
 
-        logger = loguru.logger
-        #self.logger = logging.getLogger("")
-        logger = LoggerConfig.__setup_config__(logger, config)
+        logger = LoggerConfig.change_config(logger, config)
 
         return logger
 
-    def __setup_config__(logger, config: VinConfig):
+    def change_config(logger, config: VinConfig):
         logger.remove()
         logger.level(config.log_level)
 
@@ -30,4 +25,4 @@ class LoggerConfig:
 
         return logger
 
-logger = LoggerConfig.get()
+logger = LoggerConfig.get(loguru.logger)

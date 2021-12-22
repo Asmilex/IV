@@ -93,11 +93,10 @@ def test_config_path():
 
 
 def test_logger():
-    from vin.logger import LoggerConfig
+    from vin.logger import logger, LoggerConfig
 
     log_config = VinConfig(log_to_file=False)
-
-    logger = LoggerConfig.get(log_config)
+    LoggerConfig.change_config(logger, log_config)
 
     logger.debug("Mensaje de debug")
     logger.info("Mensaje de info")
@@ -109,12 +108,11 @@ def test_logger():
     # Comprobar que se crea el archivo de logging
     from datetime import datetime
 
-
     now = datetime.now()
     salida = "Testing logging file (" + now.strftime("%Y/%m/%d, %H:%M:%S") + ")"
 
     log_config.log_to_file = True
-    logger = LoggerConfig.get(log_config)
+    LoggerConfig.change_config(logger, log_config)
 
     logger.debug(salida)
 
