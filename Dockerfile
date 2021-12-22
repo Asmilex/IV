@@ -13,14 +13,16 @@ RUN  apt-get update \
   && chown -R vin_user:vin_user /__w/
 
 USER vin_user
-WORKDIR /app/test
+WORKDIR /home/vin_user/
 
-COPY poetry.lock pyproject.toml /app/test/
+COPY poetry.lock pyproject.toml /home/vin_user/
 
 ENV PATH="$PATH:/home/vin_user/.local/bin"
 
 RUN  curl -sSL https://install.python-poetry.org | python3 - \
   && poetry config virtualenvs.create false \
   && poetry install --no-interaction
+
+WORKDIR /app/test
 
 ENTRYPOINT ["poetry", "run", "task", "test"]
