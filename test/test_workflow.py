@@ -102,6 +102,6 @@ def test_logger():
     logger.success("Mensaje de success")
     logger.warning("Mensaje de warning")
     logger.error("Mensaje de error")
-    logger.critical("Mensajde de error crítico")
+    logger.critical("Mensaje de error crítico")
 
     assert logger != None
