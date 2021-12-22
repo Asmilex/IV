@@ -1,5 +1,7 @@
 import toml
 from sys import platform
+import os
+
 
 class VinConfig:
     default_config_file = './vin_config.toml'
@@ -15,7 +17,7 @@ class VinConfig:
         else:
             self.logfile = './vin.log' if logfile is None else logfile
 
-        if path:
+        if path and  os.path.exists(VinConfig.default_config_file):
             self.load(path)
         else:
             # Vin

@@ -81,7 +81,6 @@ def test_config():
 def test_config_path():
     config = VinConfig(path = VinConfig.default_config_file)
 
-    assert path.exists(VinConfig.default_config_file)
     assert config != None
 
 

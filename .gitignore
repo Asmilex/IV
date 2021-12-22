@@ -159,4 +159,7 @@ cython_debug/
 .history
 .ionide
 
+# Específicos de Vin
+
+vin_config.toml
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,python

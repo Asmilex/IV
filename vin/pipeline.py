@@ -1,21 +1,31 @@
 from vin.vin_image import VinImage
-from vin.logger import logger
+import vin.logger
 from vin.vin_config import VinConfig
+
+
+logger = vin.logger.logger
 
 class Pipeline:
     def __init__(self):
-        self.logger = logger
+        logger.info("Inicializando pipeline")
 
-        self.logger.info("Inicializando pipeline")
+        logger.info('Procesando imagen')
+        self.preprocesar(None)
 
-    def preprocesar(imagen: VinImage):
+        logger.info('Etiquetando imagen')
+        self.etiquetar(None)
+
+        logger.info('Almacenando imagen')
+        self.almacenar_imagen(None)
+
+
+    def preprocesar(self, imagen: VinImage):
         pass
 
 
-    def etiquetar(imagen: VinImage):
+    def etiquetar(self, imagen: VinImage):
         pass
 
-    def almacenar_imagen(imagen: VinImage):
-        pass
 
-pipeline = Pipeline()
+    def almacenar_imagen(self, imagen: VinImage):
+        pass
